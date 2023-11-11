@@ -8,5 +8,5 @@ SAMPLE:
 
 mount: /tmp/ckv0d8: WARNING: source write-protected, mounted read-only.
 sha512sum of /home/shawn/Downloads/rhel-8.4-x86_64-boot.iso written to /home/shawn/Downloads/rhel-8.4-x86_64-boot.sha512sum
-sha512sum of /home/shawn/Downloads/rhel-8.4-x86_64-boot.iso files written to /home/shawn/Downloads/rhel-8.4-x86_64-boot.sha512sum-files
+sha512sum of /home/shawn/Downloads/rhel-8.4-x86_64-boot.iso contents written to /home/shawn/Downloads/rhel-8.4-x86_64-boot.sha512sum-contents
 `````````
