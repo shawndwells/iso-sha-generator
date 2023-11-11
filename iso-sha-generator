@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# Check for ISO name
+if [ $# -ne 1 ]; then
+    echo "Usage: $(basename "$0") some-iso-file.iso"
+    exit 1
+fi
+
+# Does ISO exist?
+if [ ! -r "$1" ]; then
+    echo "File $1 does not exist or is not readable"
+    exit 1
+fi
+
+# Generate a random directory and
+# use it as a mountpoint
+tmpRandomDir=/tmp/`cat /dev/urandom | tr -dc 'a-z0-9' | fold -w 6 | head -n 1`
+mkdir $tmpRandomDir
+
+# Mount the ISO, 
+# generate the sha512 of the ISO,
+# then generate sha512 of all its files 
+sudo mount -o loop $1 $tmpRandomDir
+sha512sum $1 > ${1%.*}.sha512sum
+echo "sha512sum of $1 written to ${1%.*}.sha512sum"
+find $tmpRandomDir -type f -print0 | LC_COLLATE=C sort -z | xargs -0 sudo sha512sum > ${1%.*}.sha512sum-files
+echo "sha512sum of $1 contents written to ${1%.*}.sha512sum-files"
+
+# Cleanup the mountpoint
+sudo umount $tmpRandomDir
+rmdir $tmpRandomDir
+
+
